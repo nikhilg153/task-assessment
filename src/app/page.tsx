@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { LoginForm } from "@/components/LoginForm";
+import { AuthService } from "@/services/authService";
 
 const LoginPage: React.FC = () => {
   const router = useRouter();
@@ -10,6 +11,8 @@ const LoginPage: React.FC = () => {
 
   const handleLogin = async (username: string, password: string) => {
     try {
+      await AuthService.login(username, password);
+      router.push("/dashboard");
     } catch (error: any) {
       setError(error.message);
     }
