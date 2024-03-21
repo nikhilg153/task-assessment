@@ -61,12 +61,11 @@ export class AuthService {
   }
   static async getAllUsers(): Promise<User[]> {
     return new Promise<User[]>((resolve, reject) => {
-      // Fetch registered users from local storage
       const usersFromLocalStorage = localStorage.getItem("users");
       if (usersFromLocalStorage) {
         try {
           const parsedUsers: User[] = JSON.parse(usersFromLocalStorage);
-          resolve(parsedUsers); // Resolve with the array of registered users
+          resolve(parsedUsers);
         } catch (error) {
           reject(new Error("Error parsing registered users data."));
         }
