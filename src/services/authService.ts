@@ -35,7 +35,6 @@ export class AuthService {
         return;
       }
 
-      // Fetch users array from localStorage
       const usersJSON = localStorage.getItem("users");
 
       if (!usersJSON) {
@@ -43,11 +42,9 @@ export class AuthService {
         return;
       }
 
-      // Parse the stored users array
       const users: { username: string; password: string }[] =
         JSON.parse(usersJSON);
 
-      // Find the user with the provided username
       const storedUser = users.find((user) => user.username === username);
 
       if (!storedUser) {
@@ -55,11 +52,26 @@ export class AuthService {
         return;
       }
 
-      // Check if the provided password matches the stored user's password
       if (storedUser.password === password) {
         resolve();
       } else {
         reject(new Error("Invalid password."));
+      }
+    });
+  }
+  static async getAllUsers(): Promise<User[]> {
+    return new Promise<User[]>((resolve, reject) => {
+      // Fetch registered users from local storage
+      const usersFromLocalStorage = localStorage.getItem("users");
+      if (usersFromLocalStorage) {
+        try {
+          const parsedUsers: User[] = JSON.parse(usersFromLocalStorage);
+          resolve(parsedUsers); // Resolve with the array of registered users
+        } catch (error) {
+          reject(new Error("Error parsing registered users data."));
+        }
+      } else {
+        resolve([]);
       }
     });
   }
