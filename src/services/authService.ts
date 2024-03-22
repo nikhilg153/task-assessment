@@ -74,4 +74,15 @@ export class AuthService {
       }
     });
   }
+  static async addUser(newUser: User): Promise<void> {
+    const userList = await this.getAllUsers();
+    userList.push(newUser);
+    localStorage.setItem("users", JSON.stringify(userList));
+  }
+
+  static async deleteUser(username: string): Promise<void> {
+    const userList = await this.getAllUsers();
+    const updatedList = userList.filter((user) => user.username !== username);
+    localStorage.setItem("users", JSON.stringify(updatedList));
+  }
 }

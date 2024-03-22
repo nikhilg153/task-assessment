@@ -173,7 +173,10 @@ const ProductListPage = () => {
               <td>{product.category}</td>
               <td>${product.price}</td>
               <td>
-                <button onClick={() => handleDeleteProduct(product.id)}>
+                <button
+                  onClick={() => handleDeleteProduct(product.id)}
+                  className="bg-blue-900 p-2 text-white rounded-sm hover:bg-blue-600"
+                >
                   Delete
                 </button>
               </td>
